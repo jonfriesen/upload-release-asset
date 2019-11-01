@@ -28,7 +28,7 @@ async function run() {
       tag
     });
 
-    var [uploadURL] = release.data.upload_url;
+    var uploadURL = release.data.upload_url;
     // var [uploadURL] = release.data.upload_url.split("{");
 
     console.log(JSON.stringify(release));
