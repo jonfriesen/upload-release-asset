@@ -4230,8 +4230,11 @@ async function run() {
       tag
     });
 
+    var [uploadURL] = release.data.upload_url;
+    // var [uploadURL] = release.data.upload_url.split("{");
+
     console.log(JSON.stringify(release));
-    console.log(`Release - Upload URL: ${release.upload_url}`);
+    console.log(`Release - Upload URL: ${uploadURL}`);
 
     var files = fs.readdirSync('./dist');
     console.log(JSON.stringify(files));
@@ -4246,7 +4249,7 @@ async function run() {
     // API Documentation: https://developer.github.com/v3/repos/releases/#upload-a-release-asset
     // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-upload-release-asset
     const uploadAssetResponse = await github.repos.uploadReleaseAsset({
-      url: release.upload_url,
+      url: uploadURL,
       headers,
       name: assetName,
       file: fs.readFileSync(assetPath)
