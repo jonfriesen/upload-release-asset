@@ -14,6 +14,9 @@ async function run() {
     const assetName = core.getInput('asset_name', { required: true });
     const assetContentType = core.getInput('asset_content_type', { required: true });
 
+    // remove prefix on release tag
+    releaseTag = releaseTag.replace("refs/tags/", "");
+
     // create upload URL
     const uploadUrl = `https://github.com/${repo}/releases/tag/${releaseTag}/assets`;
 
