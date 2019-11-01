@@ -46,7 +46,7 @@ async function run() {
     // Set the output variable for use by other actions: https://github.com/actions/toolkit/tree/master/packages/core#inputsoutputs
     core.setOutput('browser_download_url', browserDownloadUrl);
   } catch (error) {
-    console.log(JSON.stringify(error));
+    console.log(error);
     core.setFailed(error.message);
   }
 }
