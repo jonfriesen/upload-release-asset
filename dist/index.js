@@ -4222,14 +4222,14 @@ async function run() {
     var [owner, repo] = ownerrepo.split('/');
 
     // get upload URL
-    var release = await octokit.repos.getReleaseByTag({
+    var release = await github.repos.getReleaseByTag({
       owner,
       repo,
       tag
     })
 
     console.log(`Release - Upload URL: ${release.upload_url}`)
-    
+
     var files = fs.readdirSync('./dist');
     console.log(JSON.stringify(files));
 
