@@ -4223,9 +4223,12 @@ async function run() {
     const uploadUrl = `https://uploads.github.com/repos/${repo}/releases/${tag}/assets?name=${assetName}`;
     console.log(`UploadUrl: ${uploadUrl}`);
 
+    var files = fs.readdirSync('/assets/photos/');
+    console.log(JSON.stringify(files));
+
     // Determine content-length for header to upload asset
     const contentLength = filePath => fs.statSync(filePath).size;
-    console.log(`contentLength ${contentLength}`);
+    console.log(`contentLength ${contentLength()}`);
 
     // Setup headers for API call, see Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-upload-release-asset for more information
     const headers = { 'content-type': assetContentType, 'content-length': contentLength(assetPath) };
