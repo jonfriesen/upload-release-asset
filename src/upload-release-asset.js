@@ -18,7 +18,8 @@ async function run() {
     var tag = releaseTag.replace("refs/tags/", "");
 
     // create upload URL
-    const uploadUrl = `https://github.com/${repo}/releases/tag/${tag}/assets`;
+    // https://uploads.github.com/repos/octocat/Hello-World/releases/1/assets
+    const uploadUrl = `https://uploads.github.com/repos/${repo}/releases/${tag}/assets`;
     console.log(`UploadUrl: ${uploadUrl}`);
 
     // Determine content-length for header to upload asset
