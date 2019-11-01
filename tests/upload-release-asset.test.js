@@ -51,7 +51,7 @@ describe('Upload Release Asset', () => {
     await run();
 
     expect(uploadReleaseAsset).toHaveBeenCalledWith({
-      url: 'upload_url',
+      url: 'https://github.com/undefined/releases/tag/upload_url/assets',
       headers: { 'content-type': 'asset_content_type', 'content-length': 527 },
       name: 'asset_name',
       file: content

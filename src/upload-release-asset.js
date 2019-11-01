@@ -6,12 +6,16 @@ async function run() {
   try {
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
     const github = new GitHub(process.env.GITHUB_TOKEN);
+    const repo = process.env.GITHUB_REPOSITORY;
 
     // Get the inputs from the workflow file: https://github.com/actions/toolkit/tree/master/packages/core#inputsoutputs
-    const uploadUrl = core.getInput('upload_url', { required: true });
+    const releaseTag = core.getInput('tag_name', { required: true });
     const assetPath = core.getInput('asset_path', { required: true });
     const assetName = core.getInput('asset_name', { required: true });
     const assetContentType = core.getInput('asset_content_type', { required: true });
+
+    // create upload URL
+    const uploadUrl = `https://github.com/${repo}/releases/tag/${releaseTag}/assets`;
 
     // Determine content-length for header to upload asset
     const contentLength = filePath => fs.statSync(filePath).size;
