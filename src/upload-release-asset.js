@@ -18,15 +18,18 @@ async function run() {
     var tag = releaseTag.replace("refs/tags/", "");
 
     var [owner, repo] = ownerrepo.split('/');
+    console.log(`Owner: ${owner} Repo: ${repo} Tag: ${tag}`);
+
 
     // get upload URL
     var release = await github.repos.getReleaseByTag({
       owner,
       repo,
       tag
-    })
+    });
 
-    console.log(`Release - Upload URL: ${release.upload_url}`)
+    console.log(JSON.stringify(release));
+    console.log(`Release - Upload URL: ${release.upload_url}`);
 
     var files = fs.readdirSync('./dist');
     console.log(JSON.stringify(files));
