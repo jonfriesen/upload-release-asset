@@ -15,10 +15,10 @@ async function run() {
     const assetContentType = core.getInput('asset_content_type', { required: true });
 
     // remove prefix on release tag
-    releaseTag = releaseTag.replace("refs/tags/", "");
+    var tag = releaseTag.replace("refs/tags/", "");
 
     // create upload URL
-    const uploadUrl = `https://github.com/${repo}/releases/tag/${releaseTag}/assets`;
+    const uploadUrl = `https://github.com/${repo}/releases/tag/${tag}/assets`;
 
     // Determine content-length for header to upload asset
     const contentLength = filePath => fs.statSync(filePath).size;
