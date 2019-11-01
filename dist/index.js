@@ -4223,7 +4223,7 @@ async function run() {
     const uploadUrl = `https://uploads.github.com/repos/${repo}/releases/${tag}/assets?name=${assetName}`;
     console.log(`UploadUrl: ${uploadUrl}`);
 
-    var files = fs.readdirSync('/assets/photos/');
+    var files = fs.readdirSync('.');
     console.log(JSON.stringify(files));
 
     // Determine content-length for header to upload asset
