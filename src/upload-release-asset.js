@@ -20,18 +20,14 @@ async function run() {
     var [owner, repo] = ownerrepo.split('/');
 
     // get upload URL
-    var release = octokit.repos.getReleaseByTag({
+    var release = await octokit.repos.getReleaseByTag({
       owner,
       repo,
       tag
     })
 
-    console.log(`Release uploadURL ${release.upload_url}`)
-
-    // create upload URL
-    const uploadUrl = `https://api.github.com/repos/${ownerrepo}/releases/${tag}/assets?name=${assetName}`;
-    console.log(`UploadUrl: ${uploadUrl}`);
-
+    console.log(`Release - Upload URL: ${release.upload_url}`)
+    
     var files = fs.readdirSync('./dist');
     console.log(JSON.stringify(files));
 
@@ -45,7 +41,7 @@ async function run() {
     // API Documentation: https://developer.github.com/v3/repos/releases/#upload-a-release-asset
     // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-upload-release-asset
     const uploadAssetResponse = await github.repos.uploadReleaseAsset({
-      url: uploadUrl,
+      url: release.upload_url,
       headers,
       name: assetName,
       file: fs.readFileSync(assetPath)
