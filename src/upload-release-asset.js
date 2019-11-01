@@ -6,7 +6,7 @@ async function run() {
   try {
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
     const github = new GitHub(process.env.GITHUB_TOKEN);
-    const repo = process.env.GITHUB_REPOSITORY;
+    const ownerrepo = process.env.GITHUB_REPOSITORY;
 
     // Get the inputs from the workflow file: https://github.com/actions/toolkit/tree/master/packages/core#inputsoutputs
     const releaseTag = core.getInput('tag_name', { required: true });
@@ -17,8 +17,19 @@ async function run() {
     // remove prefix on release tag
     var tag = releaseTag.replace("refs/tags/", "");
 
+    var [owner, repo] = ownerrepo.split('/');
+
+    // get upload URL
+    var release = octokit.repos.getReleaseByTag({
+      owner,
+      repo,
+      tag
+    })
+
+    console.log(`Release uploadURL ${release.upload_url}`)
+
     // create upload URL
-    const uploadUrl = `https://uploads.github.com/repos/${repo}/releases/${tag}/assets?name=${assetName}`;
+    const uploadUrl = `https://api.github.com/repos/${ownerrepo}/releases/${tag}/assets?name=${assetName}`;
     console.log(`UploadUrl: ${uploadUrl}`);
 
     var files = fs.readdirSync('./dist');
